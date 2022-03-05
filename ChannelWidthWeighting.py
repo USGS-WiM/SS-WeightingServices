@@ -1,5 +1,21 @@
 import warnings
+from coefficient_table import crossCorrelationCoefficientTable
+from hydrologic_region_table import hydrologicRegionsTable
 
+#Returns cross-correlation coefficients between residuals for combinations of different estimation methods
+#Values come from Table 6 https://pubs.usgs.gov/sir/2020/5142/sir20205142.pdf
+def getCrossCorrelationCoefficient(regressionRegionCode, method, AEP):
+    #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
+    #method is a string to describe the combination of estimation methods, ex. "rBC,Wac"
+    #AEP is a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
+
+    #Find the hydrologic region that contains this Regression Region
+    hydrologicRegionName = None
+    for hydrologicRegion, regressionRegionCodes in hydrologicRegionsTable.items():
+        if regressionRegionCode in regressionRegionCodes:
+            hydrologicRegionName = hydrologicRegion
+
+    return(crossCorrelationCoefficientTable[hydrologicRegionName][method][AEP])
 
 def weightEst2(x1, x2, SEP1, SEP2, r12):
     #x1, x2 are input estimates in log units
