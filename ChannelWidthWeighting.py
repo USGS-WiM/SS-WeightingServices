@@ -17,10 +17,14 @@ def getCrossCorrelationCoefficient(regressionRegionCode, method, AEP):
 
     return(crossCorrelationCoefficientTable[hydrologicRegionName][method][AEP])
 
-def weightEst2(x1, x2, SEP1, SEP2, r12):
+def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, method, AEP):
     #x1, x2 are input estimates in log units
 	#SEP1, SEP2 are input SEPs in log units
-	#r12 is correlation between the methods
+	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
+    #method is a string to describe the combination of estimation methods, ex. "rBC,Wac"
+    #AEP is a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
+
+    r12 = crossCorrelationCoefficientTable[regressionRegionCode][method][AEP] 
 
     #Sanity checks
     if((SEP1 <= 0) | (SEP2 <= 0)):
@@ -44,10 +48,16 @@ def weightEst2(x1, x2, SEP1, SEP2, r12):
     return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
 
 
-def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, r12, r13, r23):
+def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, method1, method2, method3, AEP):
     #x1, x2, x3 are input estimates in log units
 	#SEP1, SEP2, SEP3 are input SEPs in log units
-	#r12, r13, r23 are correlations between the methods
+	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
+    #method1, method2, method3 are strings to describe the combination of estimation methods, ex. "rBC,Wac"
+    #AEP is a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
+
+    r12 = crossCorrelationCoefficientTable[regressionRegionCode][method1][AEP] 
+    r13 = crossCorrelationCoefficientTable[regressionRegionCode][method2][AEP] 
+    r23 = crossCorrelationCoefficientTable[regressionRegionCode][method3][AEP] 
 
     #Sanity checks
     if((SEP1 <= 0) | (SEP2 <= 0) | (SEP3 <= 0)):
