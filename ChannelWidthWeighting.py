@@ -30,8 +30,8 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, method, AEP):
     if((SEP1 <= 0) | (SEP2 <= 0)):
         raise ValueError("All SEP values must be greater than zero")
     
-    if(abs(r12) > 1):
-        raise ValueError("Correlation coefficient values must be between -1 and 1")
+    # if(abs(r12) > 1):
+    #     raise ValueError("Correlation coefficient values must be between -1 and 1")
 
     S12 = r12*(SEP1*SEP2) 
 
@@ -63,8 +63,8 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, method1, meth
     if((SEP1 <= 0) | (SEP2 <= 0) | (SEP3 <= 0)):
         raise ValueError("All SEP values must be greater than zero")
 
-    if((abs(r12) > 1) | (abs(r12) > 1) | (abs(r12) > 1)):
-        raise ValueError("Correlation coefficient values must be between -1 and 1")
+    # if((abs(r12) > 1) | (abs(r12) > 1) | (abs(r12) > 1)):
+    #     raise ValueError("Correlation coefficient values must be between -1 and 1")
 
     S12 = r12*(SEP1*SEP2) 
     S13 = r13*(SEP1*SEP3)
