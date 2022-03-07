@@ -24,7 +24,7 @@ crossCorrelationCoefficientTable = {
             "Q4": 0.415,
             "Q2": 0.468,
             "Q1": 0.518,
-            "Q0.5": 0.585,
+            "Q0.5": 0.565,
             "Q0.2": 0.621,
         },
         "BC,RS": {
@@ -300,7 +300,7 @@ crossCorrelationCoefficientTable = {
     },
     "East-Central Plains hydrologic region":  {
         "BC,AC":   {
-            "Q66.7": 0.647,
+            "Q66.7": 0.674,
             "Q50": 0.702,
             "Q42.9": 0.679,
             "Q20": 0.629,
@@ -472,7 +472,7 @@ crossCorrelationCoefficientTable = {
             "Q0.2": 0.740,
         },
         "BC,RS": {
-            "Q66.7": 0.409,
+            "Q66.7": 0.408,
             "Q50": 0.416,
             "Q42.9": 0.410,
             "Q20": 0.424,
