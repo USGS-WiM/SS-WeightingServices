@@ -6,8 +6,7 @@ from hydrologic_region_table import hydrologicRegionsTable
 #Values come from Table 6 https://pubs.usgs.gov/sir/2020/5142/sir20205142.pdf
 def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #code1 is the code that describes one flow statistic, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
-    #code2 is the code that describes one flow statistic, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+    #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     if code1 == code2:
         raise Exception("code1 and code2 must be different")
@@ -60,21 +59,17 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     finally: 
         return coefficient
 
-def weightEst2(x1, x2, SEP1, SEP2, r12):
+def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     #x1, x2 are input estimates in log units
 	#SEP1, SEP2 are input SEPs in log units
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #method is a string to describe the combination of estimation methods, ex. "rBC,Wac"
-    #AEP is a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
+    #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
-    print(getCrossCorrelationCoefficient("GC1829", "PK0_2AEP", "ACPK0_2AEP"))
+    r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
 
     #Sanity checks
     if((SEP1 <= 0) | (SEP2 <= 0)):
         raise ValueError("All SEP values must be greater than zero")
-    
-    # if(abs(r12) > 1):
-    #     raise ValueError("Correlation coefficient values must be between -1 and 1")
 
     S12 = r12*(SEP1*SEP2) 
 
@@ -91,23 +86,19 @@ def weightEst2(x1, x2, SEP1, SEP2, r12):
     return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
 
 
-def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, method1, method2, method3, AEP):
+def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
     #x1, x2, x3 are input estimates in log units
 	#SEP1, SEP2, SEP3 are input SEPs in log units
-	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #method1, method2, method3 are strings to describe the combination of estimation methods, ex. "rBC,Wac"
-    #AEP is a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
+    #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
+    #code1, code2, code3 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
-    r12 = crossCorrelationCoefficientTable[regressionRegionCode][method1][AEP] 
-    r13 = crossCorrelationCoefficientTable[regressionRegionCode][method2][AEP] 
-    r23 = crossCorrelationCoefficientTable[regressionRegionCode][method3][AEP] 
+    r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
+    r13 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code3)
+    r23 = getCrossCorrelationCoefficient(regressionRegionCode, code2, code3)
 
     #Sanity checks
     if((SEP1 <= 0) | (SEP2 <= 0) | (SEP3 <= 0)):
         raise ValueError("All SEP values must be greater than zero")
-
-    # if((abs(r12) > 1) | (abs(r12) > 1) | (abs(r12) > 1)):
-    #     raise ValueError("Correlation coefficient values must be between -1 and 1")
 
     S12 = r12*(SEP1*SEP2) 
     S13 = r13*(SEP1*SEP3)
