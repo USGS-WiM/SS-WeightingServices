@@ -37,7 +37,9 @@ class WeightEst2(BaseModel):
     x2: float
     sep1: float
     sep2: float
-    r12: float
+    regressionRegionCode: str
+    code1: str
+    code2: str
 
     class Config:
         schema_extra = {
@@ -46,7 +48,9 @@ class WeightEst2(BaseModel):
                 "x2": 1.802,
                 "sep1": 0.554,
                 "sep2": 0.677,
-                "r12": 0.658
+                "regressionRegionCode": "GC1847",
+                "code1": "PK1AEP",
+                "code2": "BFPK1AEP"
             }
         }
 
@@ -60,9 +64,10 @@ class WeightEst3(BaseModel):
     sep1: float
     sep2: float
     sep3: float
-    r12: float
-    r13: float
-    r23: float
+    regressionRegionCode: str
+    code1: str
+    code2: str
+    code3: str
 
     class Config:
         schema_extra = {
@@ -73,9 +78,10 @@ class WeightEst3(BaseModel):
                 "sep1": 0.234,
                 "sep2": 0.262,
                 "sep3": 0.283,
-                "r12": 0.553,
-                "r13": 0.518,
-                "r23": 0.907
+                "regressionRegionCode": "GC1851",
+                "code1": "PK1AEP",
+                "code2": "ACPK1AEP",
+                "code3": "BFPK1AEP"
             }
         }
 
@@ -101,7 +107,9 @@ def weightest2(request_body: WeightEst2):
         request_body.x2,
         request_body.sep1,
         request_body.sep2,
-        request_body.r12
+        request_body.regressionRegionCode,
+        request_body.code1,
+        request_body.code2
     )
 
     return {
@@ -120,9 +128,10 @@ def weightest3(request_body: WeightEst3):
         request_body.sep1,
         request_body.sep2,
         request_body.sep3,
-        request_body.r12,
-        request_body.r13,
-        request_body.r23
+        request_body.regressionRegionCode,
+        request_body.code1,
+        request_body.code2,
+        request_body.code3,
     )
 
     return {
