@@ -4,27 +4,70 @@ from hydrologic_region_table import hydrologicRegionsTable
 
 #Returns cross-correlation coefficients between residuals for combinations of different estimation methods
 #Values come from Table 6 https://pubs.usgs.gov/sir/2020/5142/sir20205142.pdf
-def getCrossCorrelationCoefficient(regressionRegionCode, method, AEP):
+def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #method is a string to describe the combination of estimation methods, ex. "rBC,Wac"
-    #AEP is a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
+    #code1 is the code that describes one flow statistic, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+    #code2 is the code that describes one flow statistic, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
-    #Find the hydrologic region that contains this Regression Region
+    if code1 == code2:
+        raise Exception("code1 and code2 must be different")
+
+    #Determine hydrologic region that contains this Regression Region
     hydrologicRegionName = None
     for hydrologicRegion, regressionRegionCodes in hydrologicRegionsTable.items():
         if regressionRegionCode in regressionRegionCodes:
             hydrologicRegionName = hydrologicRegion
+    if hydrologicRegionName == None:
+        raise Exception("Regression region code not valid")
 
-    return(crossCorrelationCoefficientTable[hydrologicRegionName][method][AEP])
+    #Determine method for each code: "BC" (basin characteristic), "AC" (active channel), "BF" (bankfull width), or "RS" (remote sensing)
+    methodCode1 = code1[:2]
+    methodCode2 = code2[:2]
+    if methodCode1 == "PK":
+        methodCode1 = "BC"
+    if methodCode2 == "PK":
+        methodCode2 = "BC"
+    validMethodCodes = ["BC", "AC", "BF", "RS"]
+    if methodCode1 not in validMethodCodes :
+        raise Exception("Method in code1 not valid")
+    if methodCode2 not in validMethodCodes:
+        raise Exception("Method in code2 not valid")
+    if methodCode1 == methodCode2:
+        raise Exception("Method codes must be different")
 
-def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, method, AEP):
+    #Determine AEP: a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
+    isDigitsCode1 = [x.isdigit() for x in code1]
+    firstDigitIndexCode1 = isDigitsCode1.index(True)
+    lastDigitIndexCode1 = len(isDigitsCode1) - isDigitsCode1[::-1].index(True) - 1
+    
+    isDigitsCode2 = [x.isdigit() for x in code2]
+    firstDigitIndexCode2 = isDigitsCode2.index(True)
+    lastDigitIndexCode2 = len(isDigitsCode2) - isDigitsCode2[::-1].index(True) - 1
+
+    if code1[firstDigitIndexCode1:lastDigitIndexCode1+1] == code2[firstDigitIndexCode2:lastDigitIndexCode2+1]:
+        AEP = "Q" + code1[firstDigitIndexCode1:lastDigitIndexCode1+1].replace("_", ".") 
+    else:
+        raise Exception("AEP value must be the same for both flow statistics")
+
+    #Return the coefficient from the table
+    try:
+        coefficient = crossCorrelationCoefficientTable[hydrologicRegionName][methodCode1 + "," + methodCode2][AEP]
+    except:
+        try:
+            coefficient = crossCorrelationCoefficientTable[hydrologicRegionName][methodCode2 + "," + methodCode1][AEP]
+        except:
+            raise Exception("Coefficient could not be determined")
+    finally: 
+        return coefficient
+
+def weightEst2(x1, x2, SEP1, SEP2, r12):
     #x1, x2 are input estimates in log units
 	#SEP1, SEP2 are input SEPs in log units
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #method is a string to describe the combination of estimation methods, ex. "rBC,Wac"
     #AEP is a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
 
-    r12 = crossCorrelationCoefficientTable[regressionRegionCode][method][AEP] 
+    print(getCrossCorrelationCoefficient("GC1829", "PK0_2AEP", "ACPK0_2AEP"))
 
     #Sanity checks
     if((SEP1 <= 0) | (SEP2 <= 0)):
