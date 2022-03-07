@@ -1,6 +1,9 @@
+#Cross-correlation coefficients between residuals for combinations of different estimation methods
+#Values come from Table 6 https://pubs.usgs.gov/sir/2020/5142/sir20205142.pdf
+
 crossCorrelationCoefficientTable = {
     "West hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.370,
             "Q50": 0.357,
             "Q42.9": 0.352,
@@ -12,7 +15,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.594,
             "Q0.2": 0.644,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.299,
             "Q50": 0.287,
             "Q42.9": 0.284,
@@ -24,7 +27,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.585,
             "Q0.2": 0.621,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.453,
             "Q50": 0.442,
             "Q42.9": 0.436,
@@ -36,7 +39,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.531,
             "Q0.2": 0.570,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.842,
             "Q50": 0.833,
             "Q42.9": 0.831,
@@ -48,7 +51,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.920,
             "Q0.2": 0.934,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.566,
             "Q50": 0.546,
             "Q42.9": 0.539,
@@ -60,7 +63,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.648,
             "Q0.2": 0.687,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.536,
             "Q50": 0.517,
             "Q42.9": 0.511,
@@ -74,7 +77,7 @@ crossCorrelationCoefficientTable = {
         }
     },
     "Northwest hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.437,
             "Q50": 0.316,
             "Q42.9": 0.276,
@@ -86,7 +89,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.624,
             "Q0.2": 0.772,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.433,
             "Q50": 0.317,
             "Q42.9": 0.280,
@@ -98,7 +101,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.648,
             "Q0.2": 0.784,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.327,
             "Q50": 0.182,
             "Q42.9": 0.133,
@@ -110,7 +113,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.597,
             "Q0.2": 0.739,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.925,
             "Q50": 0.927,
             "Q42.9": 0.931,
@@ -122,7 +125,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.985,
             "Q0.2": 0.990,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.558,
             "Q50": 0.530,
             "Q42.9": 0.533,
@@ -134,7 +137,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.884,
             "Q0.2": 0.926,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.466,
             "Q50": 0.437,
             "Q42.9": 0.443,
@@ -148,7 +151,7 @@ crossCorrelationCoefficientTable = {
         }
     },
     "Northwest Foothills hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.598,
             "Q50": 0.642,
             "Q42.9": 0.637,
@@ -160,7 +163,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.813,
             "Q0.2": 0.834,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.507,
             "Q50": 0.596,
             "Q42.9": 0.602,
@@ -172,7 +175,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.785,
             "Q0.2": 0.805,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.427,
             "Q50": 0.477,
             "Q42.9": 0.464,
@@ -184,7 +187,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.680,
             "Q0.2": 0.720,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.883,
             "Q50": 0.920,
             "Q42.9": 0.924,
@@ -196,7 +199,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.972,
             "Q0.2": 0.976,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.549,
             "Q50": 0.736,
             "Q42.9": 0.748,
@@ -208,7 +211,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.880,
             "Q0.2": 0.893,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.448,
             "Q50": 0.696,
             "Q42.9": 0.710,
@@ -222,7 +225,7 @@ crossCorrelationCoefficientTable = {
         }
     },
     "Northeast Plains hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.758,
             "Q50": 0.704,
             "Q42.9": 0.685,
@@ -234,7 +237,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.693,
             "Q0.2": 0.737,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.678,
             "Q50": 0.676,
             "Q42.9": 0.652,
@@ -246,7 +249,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.674,
             "Q0.2": 0.726,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.731,
             "Q50": 0.693,
             "Q42.9": 0.673,
@@ -258,7 +261,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.681,
             "Q0.2": 0.726,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.956,
             "Q50": 0.939,
             "Q42.9": 0.935,
@@ -270,7 +273,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.942,
             "Q0.2": 0.950,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.853,
             "Q50": 0.841,
             "Q42.9": 0.836,
@@ -282,7 +285,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.872,
             "Q0.2": 0.887,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.840,
             "Q50": 0.856,
             "Q42.9": 0.850,
@@ -296,7 +299,7 @@ crossCorrelationCoefficientTable = {
         }
     },
     "East-Central Plains hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.647,
             "Q50": 0.702,
             "Q42.9": 0.679,
@@ -308,7 +311,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.797,
             "Q0.2": 0.833,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.688,
             "Q50": 0.716,
             "Q42.9": 0.691,
@@ -320,7 +323,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.805,
             "Q0.2": 0.842,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.547,
             "Q50": 0.585,
             "Q42.9": 0.558,
@@ -332,7 +335,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.737,
             "Q0.2": 0.781,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.944,
             "Q50": 0.943,
             "Q42.9": 0.940,
@@ -344,7 +347,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.963,
             "Q0.2": 0.969,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.694,
             "Q50": 0.701,
             "Q42.9": 0.684,
@@ -356,7 +359,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.823,
             "Q0.2": 0.853,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.717,
             "Q50": 0.720,
             "Q42.9": 0.702,
@@ -370,7 +373,7 @@ crossCorrelationCoefficientTable = {
         }
     },
     "Southeast Plains hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.706,
             "Q50": 0.663,
             "Q42.9": 0.646,
@@ -382,7 +385,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.728,
             "Q0.2": 0.768,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.641,
             "Q50": 0.587,
             "Q42.9": 0.566,
@@ -394,7 +397,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.666,
             "Q0.2": 0.718,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.658,
             "Q50": 0.611,
             "Q42.9": 0.598,
@@ -406,7 +409,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.640,
             "Q0.2": 0.683,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.914,
             "Q50": 0.907,
             "Q42.9": 0.904,
@@ -418,7 +421,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.960,
             "Q0.2": 0.969,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.613,
             "Q50": 0.609,
             "Q42.9": 0.606,
@@ -430,7 +433,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.824,
             "Q0.2": 0.856,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.597,
             "Q50": 0.583,
             "Q42.9": 0.575,
@@ -444,7 +447,7 @@ crossCorrelationCoefficientTable = {
         }
     },
     "Upper Yellowstone-Central Mountain hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.685,
             "Q50": 0.662,
             "Q42.9": 0.645,
@@ -456,7 +459,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.715,
             "Q0.2": 0.752,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.521,
             "Q50": 0.462,
             "Q42.9": 0.440,
@@ -468,7 +471,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.697,
             "Q0.2": 0.740,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.409,
             "Q50": 0.416,
             "Q42.9": 0.410,
@@ -480,7 +483,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.643,
             "Q0.2": 0.692,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.879,
             "Q50": 0.825,
             "Q42.9": 0.821,
@@ -492,7 +495,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.982,
             "Q0.2": 0.988,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.579,
             "Q50": 0.530,
             "Q42.9": 0.539,
@@ -504,7 +507,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.932,
             "Q0.2": 0.951,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.573,
             "Q50": 0.534,
             "Q42.9": 0.536,
@@ -518,7 +521,7 @@ crossCorrelationCoefficientTable = {
         }
     },
     "Southwest hydrologic region":  {
-        "rBC,Wac":   {
+        "BC,AC":   {
             "Q66.7": 0.258,
             "Q50": 0.163,
             "Q42.9": 0.128,
@@ -530,7 +533,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.562,
             "Q0.2": 0.613,
         },
-        "rBC,Wbf": {
+        "BC,BF": {
             "Q66.7": 0.369,
             "Q50": 0.275,
             "Q42.9": 0.240,
@@ -542,7 +545,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.568,
             "Q0.2": 0.616,
         },
-        "rBC,Wrs": {
+        "BC,RS": {
             "Q66.7": 0.526,
             "Q50": 0.454,
             "Q42.9": 0.427,
@@ -554,7 +557,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.527,
             "Q0.2": 0.571,
         },
-        "rWac,Wbf": {
+        "AC,BF": {
             "Q66.7": 0.940,
             "Q50": 0.929,
             "Q42.9": 0.926,
@@ -566,7 +569,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.991,
             "Q0.2": 0.994,
         },
-        "rWac,Wrs": {
+        "AC,RS": {
             "Q66.7": 0.431,
             "Q50": 0.395,
             "Q42.9": 0.384,
@@ -578,7 +581,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.848,
             "Q0.2": 0.887,
         },
-        "rWbf,Wrs": {
+        "BF,RS": {
             "Q66.7": 0.510,
             "Q50": 0.474,
             "Q42.9": 0.465,
