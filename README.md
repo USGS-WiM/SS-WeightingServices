@@ -8,8 +8,6 @@ This is the basic FastAPI setup of the ChannelWidthWeightingServices. Service do
 
 ```text
 Python 3
-FastAPI
-Uvicorn or Gunicorn
 ```
 
 To run the services locally, run the following in your Windows command prompt:
