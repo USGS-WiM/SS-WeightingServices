@@ -16,7 +16,7 @@ To run the services locally, run the following in your Windows command prompt:
 # create a virtual environment
 python -m venv env
 # active the virtual environment
-. env/Scripts/activate
+.\env\Scripts\activate
 # install the project's dependencies
 pip install -r requirements.txt
 # deploy at a local server
@@ -28,19 +28,20 @@ Once the above code has been run successfully, the service documentation will be
 You can make an example `POST` call to http://127.0.0.1:8000/weightest2 with the following JSON body representing the inputs:
 
 ```text
-{"x1": 1.607, "x2": 1.802, "sep1": 0.554, "sep2": 0.677, "r12": 0.658}
+{"x1": 1.607, "x2": 1.802, "sep1": 0.554, "sep2": 0.677, "regressionRegionCode": "GC1847", "code1": "PK1AEP", "code2": "BFPK1AEP"}
 ```
 
 You can also make an example `POST` call to http://127.0.0.1:8000/weightest3 with the following JSON body representing the inputs:
 
 ```text
-{"x1": 2.74, "x2": 2.45, "x3": 2.5, "sep1": 0.234, "sep2": 0.262, "sep3": 0.283, "r12": 0.553, "r13": 0.518, "r23": 0.907}
+{"x1": 2.74, "x2": 2.45, "x3": 2.5, "sep1": 0.234, "sep2": 0.262, "sep3": 0.283, "regressionRegionCode": "GC1851", "code1": "PK1AEP", "code2": "ACPK1AEP", "code3": "BFPK1AEP"}
 ```
 
 ## Authors
 
 - **[Seth Siefen](https://www.usgs.gov/staff-profiles/seth-siefken)** - *Channel Width Weighting Script Author* - [USGS Wyoming-Montana Water Science Center](https://www.usgs.gov/centers/wyoming-montana-water-science-center/)
 - **[Aaron Stephenson](https://github.com/aaronstephenson)**  - *Web Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
+- **[Andrea Medenblik](https://github.com/amedenblik)**  - *Web Developer* - [USGS Web Informatics & Mapping](https://wim.usgs.gov/)
 
 See also the list of [contributors](../../graphs/contributors) who participated in this project.
 
