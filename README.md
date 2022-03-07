@@ -20,7 +20,7 @@ python -m venv env
 # install the project's dependencies
 pip install -r requirements.txt
 # deploy at a local server
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
 Once the above code has been run successfully, the service documentation will be available at http://127.0.0.1:8000/docs/.
