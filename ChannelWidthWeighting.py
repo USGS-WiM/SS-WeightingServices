@@ -63,7 +63,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     #x1, x2 are input estimates in log units
 	#SEP1, SEP2 are input SEPs in log units
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+    #code1, code2 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
 
@@ -90,7 +90,7 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     #x1, x2, x3 are input estimates in log units
 	#SEP1, SEP2, SEP3 are input SEPs in log units
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #code1, code2, code3 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+    #code1, code2, code3 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
     r13 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code3)
@@ -121,3 +121,22 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     SEPZ = ((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5 #EQ 10
 
     return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
+
+def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code1, code2, code3, code4):
+    #x1, x2, x3, x4 are input estimates in log units
+	#SEP1, SEP2, SEP3, SEP4 are input SEPs in log units
+    #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
+    #code1, code2, code3, code4 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+
+    xValues = [x1, x2, x3, x4]
+    SEPValues = [SEP1, SEP2, SEP3, SEP4]
+    codeValues = [code1, code2, code3, code4]
+
+    maxSEPIndex = SEPValues.index(max(SEPValues))
+
+    xValues.pop(maxSEPIndex)
+    print(xValues)
+    SEPValues.pop(maxSEPIndex)
+    codeValues.pop(maxSEPIndex)
+
+    return weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues)
