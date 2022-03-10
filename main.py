@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Response
+from warnings import WarningMessage
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -44,8 +45,8 @@ class WeightEst2(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "x1": 1.607,
-                "x2": 1.802,
+                "x1": 40.46,
+                "x2": 63.39,
                 "sep1": 0.554,
                 "sep2": 0.677,
                 "regressionRegionCode": "GC1847",
@@ -72,9 +73,9 @@ class WeightEst3(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "x1": 2.74,
-                "x2": 2.45,
-                "x3": 2.50,
+                "x1": 549.54,
+                "x2": 281.84,
+                "x3": 316.23,
                 "sep1": 0.234,
                 "sep2": 0.262,
                 "sep3": 0.283,
@@ -136,67 +137,81 @@ def docs_redirect_root():
 
 
 @app.post("/weightest2/")
-def weightest2(request_body: WeightEst2):
+def weightest2(request_body: WeightEst2, response: Response):
 
-    z, sepz = weightEst2(
-        request_body.x1,
-        request_body.x2,
-        request_body.sep1,
-        request_body.sep2,
-        request_body.regressionRegionCode,
-        request_body.code1,
-        request_body.code2
-    )
+    try: 
+        z, sepz, warningMessage = weightEst2(
+            request_body.x1,
+            request_body.x2,
+            request_body.sep1,
+            request_body.sep2,
+            request_body.regressionRegionCode,
+            request_body.code1,
+            request_body.code2
+        )
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
+        return {
+            "Z": z,
+            "SEPZ": sepz
+        }
 
-    return {
-        "Z": z,
-        "SEPZ": sepz
-    }
-
+    except Exception as e:
+        raise HTTPException(status_code = 500, detail =  str(e))
 
 @app.post("/weightest3/")
-def weightest3(request_body: WeightEst3):
+def weightest3(request_body: WeightEst3, response: Response):
 
-    z, sepz = weightEst3(
-        request_body.x1,
-        request_body.x2,
-        request_body.x3,
-        request_body.sep1,
-        request_body.sep2,
-        request_body.sep3,
-        request_body.regressionRegionCode,
-        request_body.code1,
-        request_body.code2,
-        request_body.code3
-    )
+    try:
+        z, sepz, warningMessage = weightEst3(
+            request_body.x1,
+            request_body.x2,
+            request_body.x3,
+            request_body.sep1,
+            request_body.sep2,
+            request_body.sep3,
+            request_body.regressionRegionCode,
+            request_body.code1,
+            request_body.code2,
+            request_body.code3
+        )
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
+        return {
+            "Z": z,
+            "SEPZ": sepz
+        }
 
-    return {
-        "Z": z,
-        "SEPZ": sepz
-    }
+    except Exception as e:
+        raise HTTPException(status_code = 500, detail =  str(e))
+
 
 @app.post("/weightest4/")
 def weightest4(request_body: WeightEst4, response: Response):
 
-    z, sepz = weightEst4(
-        request_body.x1,
-        request_body.x2,
-        request_body.x3,
-        request_body.x4,
-        request_body.sep1,
-        request_body.sep2,
-        request_body.sep3,
-        request_body.sep4,
-        request_body.regressionRegionCode,
-        request_body.code1,
-        request_body.code2,
-        request_body.code3,
-        request_body.code4,
-    )
+    try:
+        z, sepz, warningMessage = weightEst4(
+            request_body.x1,
+            request_body.x2,
+            request_body.x3,
+            request_body.x4,
+            request_body.sep1,
+            request_body.sep2,
+            request_body.sep3,
+            request_body.sep4,
+            request_body.regressionRegionCode,
+            request_body.code1,
+            request_body.code2,
+            request_body.code3,
+            request_body.code4,
+        )
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
 
-    response.headers["warning"] = "Only 3 channel width estimation methods can be weighted. The 3 methods with the lowest SEP values were weighted."
+        return {
+            "Z": z,
+            "SEPZ": sepz
+        }
 
-    return {
-        "Z": z,
-        "SEPZ": sepz
-    }
+    except Exception as e:
+        raise HTTPException(status_code = 500, detail =  str(e))

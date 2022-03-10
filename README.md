@@ -28,13 +28,13 @@ Once the above code has been run successfully, the service documentation will be
 You can make an example `POST` call to http://127.0.0.1:8000/weightest2 with the following JSON body representing the inputs:
 
 ```text
-{"x1": 1.607, "x2": 1.802, "sep1": 0.554, "sep2": 0.677, "regressionRegionCode": "GC1847", "code1": "PK1AEP", "code2": "BFPK1AEP"}
+{"x1": 40.46, "x2": 63.39, "sep1": 0.554, "sep2": 0.677, "regressionRegionCode": "GC1847", "code1": "PK1AEP", "code2": "BFPK1AEP"}
 ```
 
 You can make an example `POST` call to http://127.0.0.1:8000/weightest3 with the following JSON body representing the inputs:
 
 ```text
-{"x1": 2.74, "x2": 2.45, "x3": 2.5, "sep1": 0.234, "sep2": 0.262, "sep3": 0.283, "regressionRegionCode": "GC1851", "code1": "PK1AEP", "code2": "ACPK1AEP", "code3": "BFPK1AEP"}
+{"x1": 549.54, "x2": 281.84, "x3": 316.23, "sep1": 0.234, "sep2": 0.262, "sep3": 0.283, "regressionRegionCode": "GC1851", "code1": "PK1AEP", "code2": "ACPK1AEP", "code3": "BFPK1AEP"}
 ```
 
 You can make an example `POST` call to http://127.0.0.1:8000/weightest4 with the following JSON body representing the inputs:
