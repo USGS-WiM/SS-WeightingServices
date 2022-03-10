@@ -62,14 +62,12 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
 
 def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     #x1, x2 are input estimates
-	#SEP1, SEP2 are input SEPs
+	#SEP1, SEP2 are input SEPs in log units
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     x1 = math.log10(x1)
     x2 = math.log10(x2)
-    SEP1 = math.log10(SEP1)
-    SEP2 = math.log10(SEP2)
 
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
 
@@ -83,7 +81,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     a2 = 1-a1
 
     Z = 10 ** (a1*x1 + a2*x2) #EQ 11
-    SEPZ = 10 ** (((SEP1**2*SEP2**2 - S12**2) / (SEP1**2 + SEP2**2 - 2*S12))**0.5) #EQ 12
+    SEPZ = ((SEP1**2*SEP2**2 - S12**2) / (SEP1**2 + SEP2**2 - 2*S12))**0.5 #EQ 12
 
     #Check for estimate outside input bounds
     if ((Z < min(x1, x2)) | (Z > max(x1, x2))):
@@ -94,16 +92,13 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 
 def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
     #x1, x2, x3 are input estimates
-	#SEP1, SEP2, SEP3 are input SEPs
+	#SEP1, SEP2, SEP3 are input SEPs in log units
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2, code3 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     x1 = math.log10(x1)
     x2 = math.log10(x2)
     x3 = math.log10(x3)
-    SEP1 = math.log10(SEP1)
-    SEP2 = math.log10(SEP2)
-    SEP3 = math.log10(SEP3)
 
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
     r13 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code3)
@@ -131,6 +126,6 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     if ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3))):
         warnings.warn("Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated.")
                                 
-    SEPZ = 10 ** (((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5) #EQ 10
+    SEPZ = ((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5 #EQ 10
 
     return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
