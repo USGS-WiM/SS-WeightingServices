@@ -1,3 +1,4 @@
+import math
 from coefficient_table import crossCorrelationCoefficientTable
 from hydrologic_region_table import hydrologicRegionsTable
 
@@ -68,10 +69,13 @@ def getWeightingErrorMessage(Z, x1, x2, x3 = None):
         return None
 
 def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
-    #x1, x2 are input estimates in log units
+    #x1, x2 are input estimates
 	#SEP1, SEP2 are input SEPs in log units
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+
+    x1 = math.log10(x1)
+    x2 = math.log10(x2)
 
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
 
@@ -83,7 +87,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     a1 = (SEP2**2 - S12) / (SEP1**2 + SEP2**2 - 2*S12)
     a2 = 1-a1
 
-    Z = a1*x1 + a2*x2 #EQ 11
+    Z = 10 ** (a1*x1 + a2*x2) #EQ 11
     SEPZ = ((SEP1**2*SEP2**2 - S12**2) / (SEP1**2 + SEP2**2 - 2*S12))**0.5 #EQ 12
 
     warningMessage = getWeightingErrorMessage(Z, x1, x2)
@@ -92,10 +96,14 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 
 
 def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
-    #x1, x2, x3 are input estimates in log units
+    #x1, x2, x3 are input estimates
 	#SEP1, SEP2, SEP3 are input SEPs in log units
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2, code3 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+
+    x1 = math.log10(x1)
+    x2 = math.log10(x2)
+    x3 = math.log10(x3)
 
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
     r13 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code3)
@@ -116,7 +124,7 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     a2 = (A*(SEP3**2 - S23) - B*(SEP3**2 - S13)) / (A*C - B**2) #EQ 7
     a3 = 1 - a1 - a2 #EQ 8
 
-    Z = a1*x1 + a2*x2 + a3*x3 #EQ 5
+    Z = 10 ** (a1*x1 + a2*x2 + a3*x3) #EQ 5
 
     SEPZ = ((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5 #EQ 10
 
