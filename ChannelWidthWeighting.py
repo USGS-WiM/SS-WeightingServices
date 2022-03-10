@@ -56,6 +56,17 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     finally: 
         return coefficient
 
+#Check if the weighted estimate is within the bounds of input values
+def getWeightingErrorMessage(Z, x1, x2, x3 = None):
+    #Z is weighted estimate in log units
+    #x1, x2, x3 are input estimates in log units
+    if x3 == None:
+        x3 = x1
+    if ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3))):
+        return "Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated."
+    else:
+        return None
+
 def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     #x1, x2 are input estimates in log units
 	#SEP1, SEP2 are input SEPs in log units
@@ -112,14 +123,3 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     warningMessage = getWeightingErrorMessage(Z, x1, x2, x3)
 
     return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
-
-#Check if the weighted estimate is within the bounds of input values
-def getWeightingErrorMessage(Z, x1, x2, x3 = None):
-    #Z is weighted estimate in log units
-    #x1, x2, x3 are input estimates in log units
-    if x3 == None:
-        x3 = x1
-    if ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3))):
-        return "Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated."
-    else:
-        return None
