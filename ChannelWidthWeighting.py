@@ -64,7 +64,7 @@ def getWeightingErrorMessage(Z, x1, x2, x3 = None):
     if x3 == None:
         x3 = x1
     if ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3))):
-        return "Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated."
+        return "Weighted value is outside the range of input values. "
     else:
         return None
 
@@ -72,7 +72,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     #x1, x2 are input estimates
 	#SEP1, SEP2 are input SEPs in log units
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+    #code1, code2 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     x1 = math.log10(x1)
     x2 = math.log10(x2)
@@ -87,19 +87,21 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     a1 = (SEP2**2 - S12) / (SEP1**2 + SEP2**2 - 2*S12)
     a2 = 1-a1
 
-    Z = 10 ** (a1*x1 + a2*x2) #EQ 11
+    Z = a1*x1 + a2*x2 #EQ 11
     SEPZ = ((SEP1**2*SEP2**2 - S12**2) / (SEP1**2 + SEP2**2 - 2*S12))**0.5 #EQ 12
 
     warningMessage = getWeightingErrorMessage(Z, x1, x2)
 
-    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
+    Z = 10 ** Z #delog the Z value
+
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
 
 def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
     #x1, x2, x3 are input estimates
 	#SEP1, SEP2, SEP3 are input SEPs in log units
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
-    #code1, code2, code3 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+    #code1, code2, code3 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     x1 = math.log10(x1)
     x2 = math.log10(x2)
@@ -124,10 +126,36 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     a2 = (A*(SEP3**2 - S23) - B*(SEP3**2 - S13)) / (A*C - B**2) #EQ 7
     a3 = 1 - a1 - a2 #EQ 8
 
-    Z = 10 ** (a1*x1 + a2*x2 + a3*x3) #EQ 5
+    Z = a1*x1 + a2*x2 + a3*x3 #EQ 5
 
     SEPZ = ((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5 #EQ 10
 
     warningMessage = getWeightingErrorMessage(Z, x1, x2, x3)
 
-    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
+    Z = 10 ** Z #delog the Z value
+
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
+
+def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code1, code2, code3, code4):
+    #x1, x2, x3, x4 are input estimates
+	#SEP1, SEP2, SEP3, SEP4 are input SEPs in log units
+    #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
+    #code1, code2, code3, code4 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+
+    xValues = [x1, x2, x3, x4]
+    SEPValues = [SEP1, SEP2, SEP3, SEP4]
+    codeValues = [code1, code2, code3, code4]
+
+    maxSEPIndex = SEPValues.index(max(SEPValues))
+
+    xValues.pop(maxSEPIndex)
+    SEPValues.pop(maxSEPIndex)
+    codeValues.pop(maxSEPIndex)
+
+    Z, SEPZ, warningMessage = weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
+
+    if warningMessage is None:
+        warningMessage = ""
+    warningMessage += "Only 3 estimation methods can be weighted; the 3 estimation methods with lowest SEP values were weighted. "
+
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
