@@ -1,4 +1,3 @@
-from warnings import WarningMessage
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
