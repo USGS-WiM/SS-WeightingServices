@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -100,41 +100,50 @@ def docs_redirect_root():
 
 
 @app.post("/weightest2/")
-def weightest2(request_body: WeightEst2):
+def weightest2(request_body: WeightEst2, response: Response):
 
-    z, sepz = weightEst2(
-        request_body.x1,
-        request_body.x2,
-        request_body.sep1,
-        request_body.sep2,
-        request_body.regressionRegionCode,
-        request_body.code1,
-        request_body.code2
-    )
+    try: 
+        z, sepz, warningMessage = weightEst2(
+            request_body.x1,
+            request_body.x2,
+            request_body.sep1,
+            request_body.sep2,
+            request_body.regressionRegionCode,
+            request_body.code1,
+            request_body.code2
+        )
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
+        return {
+            "Z": z,
+            "SEPZ": sepz
+        }
 
-    return {
-        "Z": z,
-        "SEPZ": sepz
-    }
-
+    except Exception as e:
+        raise HTTPException(status_code = 500, detail =  str(e))
 
 @app.post("/weightest3/")
-def weightest3(request_body: WeightEst3):
+def weightest3(request_body: WeightEst3, response: Response):
 
-    z, sepz = weightEst3(
-        request_body.x1,
-        request_body.x2,
-        request_body.x3,
-        request_body.sep1,
-        request_body.sep2,
-        request_body.sep3,
-        request_body.regressionRegionCode,
-        request_body.code1,
-        request_body.code2,
-        request_body.code3,
-    )
+    try:
+        z, sepz, warningMessage = weightEst3(
+            request_body.x1,
+            request_body.x2,
+            request_body.x3,
+            request_body.sep1,
+            request_body.sep2,
+            request_body.sep3,
+            request_body.regressionRegionCode,
+            request_body.code1,
+            request_body.code2,
+            request_body.code3,
+        )
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
+        return {
+            "Z": z,
+            "SEPZ": sepz
+        }
 
-    return {
-        "Z": z,
-        "SEPZ": sepz
-    }
+    except Exception as e:
+        raise HTTPException(status_code = 500, detail =  str(e))
