@@ -105,10 +105,10 @@ class WeightEst4(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "x1": 2.74,
-                "x2": 2.45,
-                "x3": 2.50,
-                "x4": 2.60,
+                "x1": 549.54,
+                "x2": 281.84,
+                "x3": 316.23,
+                "x4": 398.11,
                 "sep1": 0.234,
                 "sep2": 0.262,
                 "sep3": 0.283,
