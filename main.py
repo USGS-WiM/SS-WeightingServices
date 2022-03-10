@@ -206,7 +206,6 @@ def weightest4(request_body: WeightEst4, response: Response):
         )
         if warningMessage is not None:
             response.headers["warning"] = warningMessage
-
         return {
             "Z": z,
             "SEPZ": sepz

@@ -92,7 +92,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 
     warningMessage = getWeightingErrorMessage(Z, x1, x2)
 
-    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
 
 def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
@@ -130,7 +130,7 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
 
     warningMessage = getWeightingErrorMessage(Z, x1, x2, x3)
 
-    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
 def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code1, code2, code3, code4):
     #x1, x2, x3, x4 are input estimates
@@ -148,4 +148,4 @@ def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, cod
     SEPValues.pop(maxSEPIndex)
     codeValues.pop(maxSEPIndex)
 
-    return weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues) #Returns weighted estimate Z, and associated SEP
+    return weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
