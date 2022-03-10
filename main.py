@@ -103,7 +103,7 @@ def docs_redirect_root():
 def weightest2(request_body: WeightEst2, response: Response):
 
     try: 
-        z, sepz = weightEst2(
+        z, sepz, warningMessage = weightEst2(
             request_body.x1,
             request_body.x2,
             request_body.sep1,
@@ -112,12 +112,8 @@ def weightest2(request_body: WeightEst2, response: Response):
             request_body.code1,
             request_body.code2
         )
-        if weightingError(
-            z,
-            request_body.x1,
-            request_body.x2
-        ):
-            response.headers["warning"] = "Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated."
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
         return {
             "Z": z,
             "SEPZ": sepz
@@ -130,7 +126,7 @@ def weightest2(request_body: WeightEst2, response: Response):
 def weightest3(request_body: WeightEst3, response: Response):
 
     try:
-        z, sepz = weightEst3(
+        z, sepz, warningMessage = weightEst3(
             request_body.x1,
             request_body.x2,
             request_body.x3,
@@ -142,13 +138,8 @@ def weightest3(request_body: WeightEst3, response: Response):
             request_body.code2,
             request_body.code3,
         )
-        if weightingError(
-            z,
-            request_body.x1,
-            request_body.x2,
-            request_body.x3,
-        ):
-            response.headers["warning"] = "Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated."
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
         return {
             "Z": z,
             "SEPZ": sepz

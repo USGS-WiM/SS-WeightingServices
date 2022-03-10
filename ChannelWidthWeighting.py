@@ -75,7 +75,9 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     Z = a1*x1 + a2*x2 #EQ 11
     SEPZ = ((SEP1**2*SEP2**2 - S12**2) / (SEP1**2 + SEP2**2 - 2*S12))**0.5 #EQ 12
 
-    return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
+    warningMessage = getWeightingErrorMessage(Z, x1, x2)
+
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
 
 
 def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
@@ -104,15 +106,20 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     a3 = 1 - a1 - a2 #EQ 8
 
     Z = a1*x1 + a2*x2 + a3*x3 #EQ 5
-                                
+
     SEPZ = ((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5 #EQ 10
 
-    return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
+    warningMessage = getWeightingErrorMessage(Z, x1, x2, x3)
+
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
 
 #Check if the weighted estimate is within the bounds of input values
-def weightingError(Z, x1, x2, x3 = None):
+def getWeightingErrorMessage(Z, x1, x2, x3 = None):
     #Z is weighted estimate in log units
     #x1, x2, x3 are input estimates in log units
     if x3 == None:
         x3 = x1
-    return ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3)))
+    if ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3))):
+        return "Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated."
+    else:
+        return None
