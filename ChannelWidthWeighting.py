@@ -1,4 +1,3 @@
-import warnings
 from coefficient_table import crossCorrelationCoefficientTable
 from hydrologic_region_table import hydrologicRegionsTable
 
@@ -9,7 +8,7 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     if code1 == code2:
-        raise Exception("code1 and code2 must be different")
+        raise ValueError("codes must all be unique")
 
     #Determine hydrologic region that contains this Regression Region
     hydrologicRegionName = None
@@ -17,7 +16,7 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
         if regressionRegionCode in regressionRegionCodes:
             hydrologicRegionName = hydrologicRegion
     if hydrologicRegionName == None:
-        raise Exception("Regression region code not valid")
+        raise ValueError("regressionRegionCode not valid")
 
     #Determine method for each code: "BC" (basin characteristic), "AC" (active channel), "BF" (bankfull width), or "RS" (remote sensing)
     methodCode1 = code1[:2]
@@ -27,12 +26,10 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     if methodCode2 == "PK":
         methodCode2 = "BC"
     validMethodCodes = ["BC", "AC", "BF", "RS"]
-    if methodCode1 not in validMethodCodes :
-        raise Exception("Method in code1 not valid")
-    if methodCode2 not in validMethodCodes:
-        raise Exception("Method in code2 not valid")
+    if methodCode1 not in validMethodCodes or methodCode2 not in validMethodCodes:
+        raise ValueError("Method in code not valid")
     if methodCode1 == methodCode2:
-        raise Exception("Method codes must be different")
+        raise ValueError("Method in codes must all be unique")
 
     #Determine AEP: a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
     isDigitsCode1 = [x.isdigit() for x in code1]
@@ -46,7 +43,7 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     if code1[firstDigitIndexCode1:lastDigitIndexCode1+1] == code2[firstDigitIndexCode2:lastDigitIndexCode2+1]:
         AEP = "Q" + code1[firstDigitIndexCode1:lastDigitIndexCode1+1].replace("_", ".") 
     else:
-        raise Exception("AEP value must be the same for both flow statistics")
+        raise ValueError("AEP value must be the same for all flow statistics")
 
     #Return the coefficient from the table
     try:
@@ -59,6 +56,17 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     finally: 
         return coefficient
 
+#Check if the weighted estimate is within the bounds of input values
+def getWeightingErrorMessage(Z, x1, x2, x3 = None):
+    #Z is weighted estimate in log units
+    #x1, x2, x3 are input estimates in log units
+    if x3 == None:
+        x3 = x1
+    if ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3))):
+        return "Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated."
+    else:
+        return None
+
 def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     #x1, x2 are input estimates in log units
 	#SEP1, SEP2 are input SEPs in log units
@@ -67,7 +75,6 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
 
-    #Sanity checks
     if((SEP1 <= 0) | (SEP2 <= 0)):
         raise ValueError("All SEP values must be greater than zero")
 
@@ -79,11 +86,9 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     Z = a1*x1 + a2*x2 #EQ 11
     SEPZ = ((SEP1**2*SEP2**2 - S12**2) / (SEP1**2 + SEP2**2 - 2*S12))**0.5 #EQ 12
 
-    #Check for estimate outside input bounds
-    if ((Z < min(x1, x2)) | (Z > max(x1, x2))):
-        warnings.warn("Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated.")
+    warningMessage = getWeightingErrorMessage(Z, x1, x2)
 
-    return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
 
 
 def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
@@ -96,7 +101,6 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     r13 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code3)
     r23 = getCrossCorrelationCoefficient(regressionRegionCode, code2, code3)
 
-    #Sanity checks
     if((SEP1 <= 0) | (SEP2 <= 0) | (SEP3 <= 0)):
         raise ValueError("All SEP values must be greater than zero")
 
@@ -114,10 +118,8 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
 
     Z = a1*x1 + a2*x2 + a3*x3 #EQ 5
 
-    #Check for estimate outside input bounds
-    if ((Z < min(x1, x2, x3)) | (Z > max(x1, x2, x3))):
-        warnings.warn("Weighted value is outside the range of input values. This can occur when the input estimates are highly correlated.")
-                                
     SEPZ = ((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5 #EQ 10
 
-    return((Z, SEPZ)) #Returns weighted estimate Z, and associated SEP
+    warningMessage = getWeightingErrorMessage(Z, x1, x2, x3)
+
+    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, and associated SEP
