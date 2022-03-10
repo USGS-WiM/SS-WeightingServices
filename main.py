@@ -44,8 +44,8 @@ class WeightEst2(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "x1": 1.607,
-                "x2": 1.802,
+                "x1": 40.46,
+                "x2": 63.39,
                 "sep1": 0.554,
                 "sep2": 0.677,
                 "regressionRegionCode": "GC1847",
@@ -72,9 +72,9 @@ class WeightEst3(BaseModel):
     class Config:
         schema_extra = {
             "example": {
-                "x1": 2.74,
-                "x2": 2.45,
-                "x3": 2.50,
+                "x1": 549.54,
+                "x2": 281.84,
+                "x3": 316.23,
                 "sep1": 0.234,
                 "sep2": 0.262,
                 "sep3": 0.283,
