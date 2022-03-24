@@ -139,7 +139,7 @@ def docs_redirect_root():
 def weightest2(request_body: WeightEst2, response: Response):
 
     try: 
-        z, sepz, warningMessage = weightEst2(
+        Z, SEPZ, CI, PIL, PIU, warningMessage = weightEst2(
             request_body.x1,
             request_body.x2,
             request_body.sep1,
@@ -151,8 +151,11 @@ def weightest2(request_body: WeightEst2, response: Response):
         if warningMessage is not None:
             response.headers["warning"] = warningMessage
         return {
-            "Z": z,
-            "SEPZ": sepz
+            "Z": Z,
+            "SEPZ": SEPZ,
+            "CI": CI,
+            "PIL": PIL,
+            "PIU": PIU
         }
 
     except Exception as e:
@@ -162,7 +165,7 @@ def weightest2(request_body: WeightEst2, response: Response):
 def weightest3(request_body: WeightEst3, response: Response):
 
     try:
-        z, sepz, warningMessage = weightEst3(
+        Z, SEPZ, CI, PIL, PIU, warningMessage = weightEst3(
             request_body.x1,
             request_body.x2,
             request_body.x3,
@@ -177,8 +180,11 @@ def weightest3(request_body: WeightEst3, response: Response):
         if warningMessage is not None:
             response.headers["warning"] = warningMessage
         return {
-            "Z": z,
-            "SEPZ": sepz
+            "Z": Z,
+            "SEPZ": SEPZ,
+            "CI": CI,
+            "PIL": PIL,
+            "PIU": PIU
         }
 
     except Exception as e:
@@ -189,7 +195,7 @@ def weightest3(request_body: WeightEst3, response: Response):
 def weightest4(request_body: WeightEst4, response: Response):
 
     try:
-        z, sepz, warningMessage = weightEst4(
+        Z, SEPZ, CI, PIL, PIU, warningMessage = weightEst4(
             request_body.x1,
             request_body.x2,
             request_body.x3,
@@ -206,8 +212,11 @@ def weightest4(request_body: WeightEst4, response: Response):
         )
         response.headers["warning"] = warningMessage
         return {
-            "Z": z,
-            "SEPZ": sepz
+            "Z": Z,
+            "SEPZ": SEPZ,
+            "CI": CI,
+            "PIL": PIL,
+            "PIU": PIU
         }
 
     except Exception as e:
