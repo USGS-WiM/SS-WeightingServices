@@ -165,7 +165,7 @@ def weightest2(request_body: WeightEst2, response: Response):
 def weightest3(request_body: WeightEst3, response: Response):
 
     try:
-        Z, SEPZ, CI, PIL, PIU, = weightEst3(
+        Z, SEPZ, CI, PIL, PIU, warningMessage = weightEst3(
             request_body.x1,
             request_body.x2,
             request_body.x3,
