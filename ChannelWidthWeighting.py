@@ -94,7 +94,11 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 
     Z = 10 ** Z #delog the Z value
 
-    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
+    CI = 1.64 * SEPZ #Confidence interval
+    PIL = 10 ** (Z - CI) #Prediction Interval-Lower 
+    PIU = 10 ** (Z + CI) #Prediction Interval-Upper
+
+    return((Z, SEPZ, CI, PIL, PIU, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
 
 def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2, code3):
@@ -133,8 +137,11 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     warningMessage = getWeightingErrorMessage(Z, x1, x2, x3)
 
     Z = 10 ** Z #delog the Z value
+    CI = 1.64 * SEPZ #Confidence interval
+    PIL = 10 ** (Z - CI) #Prediction Interval-Lower 
+    PIU = 10 ** (Z + CI) #Prediction Interval-Upper
 
-    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
+    return((Z, SEPZ, CI, PIL, PIU, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
 def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code1, code2, code3, code4):
     #x1, x2, x3, x4 are input estimates
@@ -152,10 +159,10 @@ def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, cod
     SEPValues.pop(maxSEPIndex)
     codeValues.pop(maxSEPIndex)
 
-    Z, SEPZ, warningMessage = weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
+    Z, SEPZ, CI, PIL, PIU, warningMessage = weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
     if warningMessage is None:
         warningMessage = ""
     warningMessage += "Only 3 estimation methods can be weighted; the 3 estimation methods with lowest SEP values were weighted. "
 
-    return((Z, SEPZ, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
+    return((Z, SEPZ, CI, PIL, PIU, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
