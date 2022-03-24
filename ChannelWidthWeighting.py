@@ -92,11 +92,10 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 
     warningMessage = getWeightingErrorMessage(Z, x1, x2)
 
-    Z = 10 ** Z #delog the Z value
-
     CI = 1.64 * SEPZ #Confidence interval
     PIL = 10 ** (Z - CI) #Prediction Interval-Lower 
     PIU = 10 ** (Z + CI) #Prediction Interval-Upper
+    Z = 10 ** Z #delog the Z value
 
     return((Z, SEPZ, CI, PIL, PIU, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
@@ -133,13 +132,12 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     Z = a1*x1 + a2*x2 + a3*x3 #EQ 5
 
     SEPZ = ((a1*SEP1)**2 + (a2*SEP2)**2 + (a3*SEP3)**2 + 2*a1*a2*S12 + 2*a1*a3*S13 + 2*a2*a3*S23)**0.5 #EQ 10
-
     warningMessage = getWeightingErrorMessage(Z, x1, x2, x3)
 
-    Z = 10 ** Z #delog the Z value
     CI = 1.64 * SEPZ #Confidence interval
     PIL = 10 ** (Z - CI) #Prediction Interval-Lower 
     PIU = 10 ** (Z + CI) #Prediction Interval-Upper
+    Z = 10 ** Z #delog the Z value
 
     return((Z, SEPZ, CI, PIL, PIU, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
