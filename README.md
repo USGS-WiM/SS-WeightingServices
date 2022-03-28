@@ -42,6 +42,20 @@ You can make an example `POST` call to http://127.0.0.1:8000/weightest4 with the
 ```text
 {"x1": 549.54, "x2": 281.84, "x3": 316.23, "x4": 398.11, "sep1": 0.234, "sep2": 0.262, "sep3": 0.283, "sep4": 0.299, "regressionRegionCode": "GC1851", "code1": "PK1AEP", "code2": "ACPK1AEP", "code3": "BFPK1AEP", "code4": "RSPK1AEP"}
 ```
+## Deployment
+
+1. [Contact SysOps](https://github.com/USGS-WiM/wim-infrastructure/issues/new) to request access to the FastAPI_Services server
+2. Use [Putty](https://www.putty.org/) to SSH onto the FastAPI_Services server. In the Putty Configuration:
+     - Host Name: `<you_username>@FastAPI_Services_hostname_or_IP_address`
+     - Port: 22
+     - Connection type: SSH
+     - In the sidebar, Connection > SSH > Auth: "Private key file for authentication:" click "Browse" to upload your private key file
+     - Click "Open" to connect
+ 3. Go to the app directory: `cd /var/www/SS-WeightingServices`
+ 4. Pull the latest code: `sudo git pull origin master`
+ 5. Restart the daemon: `sudo systemctl restart channelwidthweighting`
+ 6. Check that the services were updated: https://channelwidthweighting.streamstats.usgs.gov/docs
+ 7. Exit when finished: `exit`
 
 ## Authors
 
