@@ -50,7 +50,7 @@ class WeightEst2(BaseModel):
                 "sep2": 0.677,
                 "regressionRegionCode": "GC1847",
                 "code1": "PK1AEP",
-                "code2": "BFPK1AEP"
+                "code2": "BWPK1AEP"
             }
         }
 
@@ -81,7 +81,7 @@ class WeightEst3(BaseModel):
                 "regressionRegionCode": "GC1851",
                 "code1": "PK1AEP",
                 "code2": "ACPK1AEP",
-                "code3": "BFPK1AEP"
+                "code3": "BWPK1AEP"
             }
         }
 
