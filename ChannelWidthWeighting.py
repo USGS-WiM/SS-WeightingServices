@@ -19,14 +19,14 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     if hydrologicRegionName == None:
         raise ValueError("regressionRegionCode not valid")
 
-    #Determine method for each code: "BC" (basin characteristic), "AC" (active channel), "BF" (bankfull width), or "RS" (remote sensing)
+    #Determine method for each code: "BC" (basin characteristic), "AC" (active channel), "BW" (bankfull width), or "RS" (remote sensing)
     methodCode1 = code1[:2]
     methodCode2 = code2[:2]
     if methodCode1 == "PK":
         methodCode1 = "BC"
     if methodCode2 == "PK":
         methodCode2 = "BC"
-    validMethodCodes = ["BC", "AC", "BF", "RS"]
+    validMethodCodes = ["BC", "AC", "BW", "RS"]
     if methodCode1 not in validMethodCodes or methodCode2 not in validMethodCodes:
         raise ValueError("Method in code not valid")
     if methodCode1 == methodCode2:

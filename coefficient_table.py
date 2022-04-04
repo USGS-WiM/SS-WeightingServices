@@ -1,5 +1,6 @@
 #Cross-correlation coefficients between residuals for combinations of different estimation methods
 #Values come from Table 6 https://pubs.usgs.gov/sir/2020/5142/sir20205142.pdf
+#"BW" corresponds to Bankfull Width (shown as "BF" in Table 6)
 
 crossCorrelationCoefficientTable = {
     "West hydrologic region":  {
@@ -15,7 +16,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.594,
             "Q0.2": 0.644,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.299,
             "Q50": 0.287,
             "Q42.9": 0.284,
@@ -39,7 +40,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.531,
             "Q0.2": 0.570,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.842,
             "Q50": 0.833,
             "Q42.9": 0.831,
@@ -63,7 +64,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.648,
             "Q0.2": 0.687,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.536,
             "Q50": 0.517,
             "Q42.9": 0.511,
@@ -89,7 +90,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.624,
             "Q0.2": 0.772,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.433,
             "Q50": 0.317,
             "Q42.9": 0.280,
@@ -113,7 +114,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.597,
             "Q0.2": 0.739,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.925,
             "Q50": 0.927,
             "Q42.9": 0.931,
@@ -137,7 +138,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.884,
             "Q0.2": 0.926,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.466,
             "Q50": 0.437,
             "Q42.9": 0.443,
@@ -163,7 +164,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.813,
             "Q0.2": 0.834,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.507,
             "Q50": 0.596,
             "Q42.9": 0.602,
@@ -187,7 +188,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.680,
             "Q0.2": 0.720,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.883,
             "Q50": 0.920,
             "Q42.9": 0.924,
@@ -211,7 +212,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.880,
             "Q0.2": 0.893,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.448,
             "Q50": 0.696,
             "Q42.9": 0.710,
@@ -237,7 +238,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.693,
             "Q0.2": 0.737,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.678,
             "Q50": 0.676,
             "Q42.9": 0.652,
@@ -261,7 +262,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.681,
             "Q0.2": 0.726,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.956,
             "Q50": 0.939,
             "Q42.9": 0.935,
@@ -285,7 +286,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.872,
             "Q0.2": 0.887,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.840,
             "Q50": 0.856,
             "Q42.9": 0.850,
@@ -311,7 +312,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.797,
             "Q0.2": 0.833,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.688,
             "Q50": 0.716,
             "Q42.9": 0.691,
@@ -335,7 +336,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.737,
             "Q0.2": 0.781,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.944,
             "Q50": 0.943,
             "Q42.9": 0.940,
@@ -359,7 +360,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.823,
             "Q0.2": 0.853,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.717,
             "Q50": 0.720,
             "Q42.9": 0.702,
@@ -385,7 +386,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.728,
             "Q0.2": 0.768,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.641,
             "Q50": 0.587,
             "Q42.9": 0.566,
@@ -409,7 +410,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.640,
             "Q0.2": 0.683,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.914,
             "Q50": 0.907,
             "Q42.9": 0.904,
@@ -433,7 +434,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.824,
             "Q0.2": 0.856,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.597,
             "Q50": 0.583,
             "Q42.9": 0.575,
@@ -459,7 +460,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.715,
             "Q0.2": 0.752,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.521,
             "Q50": 0.462,
             "Q42.9": 0.440,
@@ -483,7 +484,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.643,
             "Q0.2": 0.692,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.879,
             "Q50": 0.825,
             "Q42.9": 0.821,
@@ -507,7 +508,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.932,
             "Q0.2": 0.951,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.573,
             "Q50": 0.534,
             "Q42.9": 0.536,
@@ -533,7 +534,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.562,
             "Q0.2": 0.613,
         },
-        "BC,BF": {
+        "BC,BW": {
             "Q66.7": 0.369,
             "Q50": 0.275,
             "Q42.9": 0.240,
@@ -557,7 +558,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.527,
             "Q0.2": 0.571,
         },
-        "AC,BF": {
+        "AC,BW": {
             "Q66.7": 0.940,
             "Q50": 0.929,
             "Q42.9": 0.926,
@@ -581,7 +582,7 @@ crossCorrelationCoefficientTable = {
             "Q0.5": 0.848,
             "Q0.2": 0.887,
         },
-        "BF,RS": {
+        "BW,RS": {
             "Q66.7": 0.510,
             "Q50": 0.474,
             "Q42.9": 0.465,
