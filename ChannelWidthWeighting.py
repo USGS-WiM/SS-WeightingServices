@@ -73,7 +73,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 	#SEP1, SEP2 are input SEPs in log units
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
-
+    
     x1 = math.log10(x1)
     x2 = math.log10(x2)
 
@@ -91,7 +91,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     SEPZ = ((SEP1**2*SEP2**2 - S12**2) / (SEP1**2 + SEP2**2 - 2*S12))**0.5 #EQ 12
 
     warningMessage = getWeightingErrorMessage(Z, x1, x2)
-
+    
     CI = 1.64 * SEPZ #Confidence interval
     PIL = 10 ** (Z - CI) #Prediction Interval-Lower 
     PIU = 10 ** (Z + CI) #Prediction Interval-Upper
@@ -147,6 +147,7 @@ def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, cod
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2, code3, code4 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
+
     xValues = [x1, x2, x3, x4]
     SEPValues = [SEP1, SEP2, SEP3, SEP4]
     codeValues = [code1, code2, code3, code4]
@@ -164,3 +165,37 @@ def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, cod
     warningMessage += "Only 3 estimation methods can be weighted; the 3 estimation methods with lowest SEP values were weighted. "
 
     return((Z, SEPZ, CI, PIL, PIU, warningMessage)) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
+
+def condition(x):
+    return x > 0
+
+def weightEst(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code1, code2, code3, code4):
+    #x1, x2, x3, x4 are input estimates
+	#SEP1, SEP2, SEP3, SEP4 are input SEPs in log units
+    #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
+    #code1, code2, code3, code4 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+
+    xValues = [x1, x2, x3, x4]
+    SEPValues = [SEP1, SEP2, SEP3, SEP4]
+    codeValues = [code1, code2, code3, code4]
+
+    validValues = [element > 0 for element in xValues]
+    numberValidValues = sum(validValues)
+
+    xValues = [i for (i, v) in zip(xValues, validValues) if v]
+    SEPValues = [i for (i, v) in zip(SEPValues, validValues) if v]
+    codeValues = [i for (i, v) in zip(codeValues, validValues) if v]
+
+    print(xValues)
+    print(SEPValues)
+    print(codeValues)
+
+    if (numberValidValues == 1):
+        raise ValueError("At least one estimation method value must be provided.")
+    elif (numberValidValues == 2):
+        return weightEst2(*xValues, *SEPValues, regressionRegionCode, *codeValues)
+    elif (numberValidValues == 3):
+        return weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues)
+    elif (numberValidValues == 4):
+        return weightEst4(*xValues, *SEPValues, regressionRegionCode, *codeValues)
+

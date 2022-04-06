@@ -3,7 +3,7 @@ from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
-from ChannelWidthWeighting import weightEst2, weightEst3, weightEst4
+from ChannelWidthWeighting import weightEst, weightEst2, weightEst3, weightEst4
 
 
 app = FastAPI(
@@ -19,7 +19,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 ######
 ##
@@ -116,7 +115,7 @@ class WeightEst4(BaseModel):
                 "regressionRegionCode": "GC1851",
                 "code1": "PK1AEP",
                 "code2": "ACPK1AEP",
-                "code3": "BFPK1AEP",
+                "code3": "BWPK1AEP",
                 "code4": "RSPK1AEP"
             }
         }
@@ -134,6 +133,36 @@ class WeightEst4(BaseModel):
 def docs_redirect_root():
     return RedirectResponse(url=app.docs_url)
 
+@app.post("/weightest/")
+def weightest4(request_body: WeightEst4, response: Response):
+
+    try:
+        Z, SEPZ, CI, PIL, PIU, warningMessage  = weightEst(
+            request_body.x1,
+            request_body.x2,
+            request_body.x3,
+            request_body.x4,
+            request_body.sep1,
+            request_body.sep2,
+            request_body.sep3,
+            request_body.sep4,
+            request_body.regressionRegionCode,
+            request_body.code1,
+            request_body.code2,
+            request_body.code3,
+            request_body.code4,
+        )
+        response.headers["warning"] = warningMessage
+        return {
+            "Z": Z,
+            "SEPZ": SEPZ,
+            "CI": CI,
+            "PIL": PIL,
+            "PIU": PIU
+        }
+
+    except Exception as e:
+        raise HTTPException(status_code = 500, detail =  str(e))
 
 @app.post("/weightest2/")
 def weightest2(request_body: WeightEst2, response: Response):
