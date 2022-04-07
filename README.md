@@ -42,7 +42,7 @@ Once the above code has been run successfully, the service documentation will be
 You can make an example `POST` call to http://127.0.0.1:8000/weightest with the following JSON body representing the inputs:
 
 ```text
-{"x1": 549.54, "x2": -9999, "x3": -9999, "x4": 398.11, "sep1": 0.234, "sep4": 0.299, "regressionRegionCode": "GC1851", "code1": "PK1AEP", "code4": "RSPK1AEP"}
+{"x1": 549.54, "x2": null, "x3": null, "x4": 398.11, "sep1": 0.234, "sep2": null, "sep3": null, "sep4": 0.299, "regressionRegionCode": "GC1851", "code1": "PK1AEP", "code2": null, "code3": null, "code4": "RSPK1AEP"}
 ```
 
 You can make an example `POST` call to http://127.0.0.1:8000/weightest2 with the following JSON body representing the inputs:
