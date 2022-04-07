@@ -23,6 +23,20 @@ pip install -r requirements.txt
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
+Alternate instructions for the Windows Anaconda3 prompt:
+
+```bash
+# create a new Conda environment
+conda create --name sc-runoffmodelingservices
+# active the Conda environment
+conda activate sc-runoffmodelingservices
+# install the project's dependencies
+conda install pip
+pip install -r requirements.txt
+# deploy at a local server
+uvicorn main:app --host 0.0.0.0 --port 8000
+```
+
 Once the above code has been run successfully, the service documentation will be available at http://127.0.0.1:8000/docs/.
 
 You can make an example `POST` call to http://127.0.0.1:8000/weightest with the following JSON body representing the inputs:
