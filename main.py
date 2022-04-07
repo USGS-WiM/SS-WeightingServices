@@ -134,7 +134,7 @@ def docs_redirect_root():
     return RedirectResponse(url=app.docs_url)
 
 @app.post("/weightest/")
-def weightest4(request_body: WeightEst4, response: Response):
+def weightest(request_body: WeightEst4, response: Response):
 
     try:
         Z, SEPZ, CI, PIL, PIU, warningMessage  = weightEst(
@@ -152,7 +152,8 @@ def weightest4(request_body: WeightEst4, response: Response):
             request_body.code3,
             request_body.code4,
         )
-        response.headers["warning"] = warningMessage
+        if warningMessage is not None:
+            response.headers["warning"] = warningMessage
         return {
             "Z": Z,
             "SEPZ": SEPZ,
