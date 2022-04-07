@@ -25,6 +25,12 @@ uvicorn main:app --host 0.0.0.0 --port 8000
 
 Once the above code has been run successfully, the service documentation will be available at http://127.0.0.1:8000/docs/.
 
+You can make an example `POST` call to http://127.0.0.1:8000/weightest with the following JSON body representing the inputs:
+
+```text
+{"x1": 549.54, "x2": -9999, "x3": -9999, "x4": 398.11, "sep1": 0.234, "sep4": 0.299, "regressionRegionCode": "GC1851", "code1": "PK1AEP", "code4": "RSPK1AEP"}
+```
+
 You can make an example `POST` call to http://127.0.0.1:8000/weightest2 with the following JSON body representing the inputs:
 
 ```text
