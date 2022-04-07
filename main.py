@@ -120,6 +120,37 @@ class WeightEst4(BaseModel):
             }
         }
 
+class WeightEst(BaseModel):
+
+    x1: float = -9999
+    x2: float = -9999
+    x3: float = -9999
+    x4: float = -9999
+    sep1: float = -9999
+    sep2: float = -9999
+    sep3: float = -9999
+    sep4: float = -9999
+    regressionRegionCode: str
+    code1: str = "-9999"
+    code2: str = "-9999"
+    code3: str = "-9999"
+    code4: str = "-9999"
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "x1": 549.54,
+                "x2": -9999,
+                "x3": -9999,
+                "x4": 398.11,
+                "sep1": 0.234,
+                "sep4": 0.299,
+                "regressionRegionCode": "GC1851",
+                "code1": "PK1AEP",
+                "code4": "RSPK1AEP"
+            }
+        }
+
 
 ######
 ##
@@ -134,7 +165,7 @@ def docs_redirect_root():
     return RedirectResponse(url=app.docs_url)
 
 @app.post("/weightest/")
-def weightest(request_body: WeightEst4, response: Response):
+def weightest(request_body: WeightEst, response: Response):
 
     try:
         Z, SEPZ, CI, PIL, PIU, warningMessage  = weightEst(
