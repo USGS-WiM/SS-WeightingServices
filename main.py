@@ -1,7 +1,9 @@
+from urllib import request
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
+from pydantic.schema import Optional
 
 from ChannelWidthWeighting import weightEst, weightEst2, weightEst3, weightEst4
 
@@ -28,6 +30,42 @@ app.add_middleware(
 
 # These schemas provide format and data type validation
 #  of request body inputs, and automated API documentation
+
+class WeightEst(BaseModel):
+
+    x1: Optional[float]
+    x2: Optional[float]
+    x3: Optional[float]
+    x4: Optional[float]
+    sep1: Optional[float]
+    sep2: Optional[float]
+    sep3: Optional[float]
+    sep4: Optional[float]
+    regressionRegionCode: str
+    code1: Optional[str]
+    code2: Optional[str]
+    code3: Optional[str]
+    code4: Optional[str]
+
+    class Config:
+        null = None
+        schema_extra = {
+            "example": {
+                "x1": 549.54,
+                "x2": null,
+                "x3": null,
+                "x4": 398.11,
+                "sep1": 0.234,
+                "sep2": null,
+                "sep3": null,
+                "sep4": 0.299,
+                "regressionRegionCode": "GC1851",
+                "code1": "PK1AEP",
+                "code2": null,
+                "code3": null,
+                "code4": "RSPK1AEP"
+            }
+        }
 
 class WeightEst2(BaseModel):
 
@@ -119,38 +157,6 @@ class WeightEst4(BaseModel):
                 "code4": "RSPK1AEP"
             }
         }
-
-class WeightEst(BaseModel):
-
-    x1: float = -9999
-    x2: float = -9999
-    x3: float = -9999
-    x4: float = -9999
-    sep1: float = -9999
-    sep2: float = -9999
-    sep3: float = -9999
-    sep4: float = -9999
-    regressionRegionCode: str
-    code1: str = "-9999"
-    code2: str = "-9999"
-    code3: str = "-9999"
-    code4: str = "-9999"
-
-    class Config:
-        schema_extra = {
-            "example": {
-                "x1": 549.54,
-                "x2": -9999,
-                "x3": -9999,
-                "x4": 398.11,
-                "sep1": 0.234,
-                "sep4": 0.299,
-                "regressionRegionCode": "GC1851",
-                "code1": "PK1AEP",
-                "code4": "RSPK1AEP"
-            }
-        }
-
 
 ######
 ##

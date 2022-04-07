@@ -175,7 +175,7 @@ def weightEst(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code
     SEPValues = [SEP1, SEP2, SEP3, SEP4]
     codeValues = [code1, code2, code3, code4]
 
-    validValues = [element > 0 for element in xValues] # Boolean list to denote which values are valid (corresponding x values greater than 0)
+    validValues = [element != None for element in xValues] # Boolean list to denote which values are valid (corresponding x values greater than 0)
     numberValidValues = sum(validValues)
 
     xValidValues = [i for (i, v) in zip(xValues, validValues) if v]
