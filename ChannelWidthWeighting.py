@@ -74,6 +74,16 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
 	#regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
     
+    # Check that all x values are valid (not null)
+    if None in [x1, x2]:
+        raise ValueError("Two estimation method values must be provided.")
+    # Check that all SEP values are valid (not null)
+    if None in [SEP1, SEP2]:
+        raise ValueError("Two SEP values must be provided.")
+    # Check that all code values are valid (not null)
+    if None in [code1, code2]:
+        raise ValueError("Two code values must be provided.")
+
     x1 = math.log10(x1)
     x2 = math.log10(x2)
 
@@ -104,6 +114,16 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
 	#SEP1, SEP2, SEP3 are input SEPs in log units
     #regressionRegionCode is the string code for the Regression Region, ex. "GC1829"
     #code1, code2, code3 are the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
+
+    # Check that all x values are valid (not null)
+    if None in [x1, x2, x3]:
+        raise ValueError("Three estimation method values must be provided.")
+    # Check that all SEP values are valid (not null)
+    if None in [SEP1, SEP2, SEP3]:
+        raise ValueError("Three SEP values must be provided.")
+    # Check that all code values are valid (not null)
+    if None in [code1, code2, code3]:
+        raise ValueError("Three code values must be provided.")
 
     x1 = math.log10(x1)
     x2 = math.log10(x2)
@@ -156,6 +176,16 @@ def weightEst4(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, cod
     SEPValues.pop(maxSEPIndex)
     codeValues.pop(maxSEPIndex)
 
+    # Check that there are 3 remaining valid x values that (not null) 
+    if None in xValues:
+        raise ValueError("At least two estimation method values must be provided.")
+    # Check that corresponding SEP values are all valid (not null)
+    if None in SEPValues:
+        raise ValueError("SEP values were unavailable for corresponding flow statistic values.")
+    # Check that corresponding code values are all valid (not null)
+    if None in codeValues:
+        raise ValueError("Code values were unavailable for corresponding flow statistic values.")
+
     Z, SEPZ, CI, PIL, PIU, warningMessage = weightEst3(*xValues, *SEPValues, regressionRegionCode, *codeValues) #Returns weighted estimate Z, associated SEP, and warning messages about results validity
 
     if warningMessage is None:
@@ -182,9 +212,11 @@ def weightEst(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code
     SEPValidValues = [i for (i, v) in zip(SEPValues, validValues) if v]
     codeValidValues = [i for (i, v) in zip(codeValues, validValues) if v]
 
-    # Check that valid values are not all null
+    # Check that corresponding SEP values are all valid (not null)
     if None in SEPValidValues:
         raise ValueError("SEP values were unavailable for corresponding flow statistic values.")
+    if None in codeValidValues:
+        raise ValueError("Code values were unavailable for corresponding flow statistic values.")
 
     if (numberValidValues < 2):
         raise ValueError("At least two estimation method values must be provided.")
