@@ -9,7 +9,7 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     #code1, code2 ares the string codes that describes the flow statistic for the estimation methods, ex. "ACPK0_2AEP", which represents "Active Channel Width 0.2-percent AEP flood"
 
     if code1 == code2:
-        raise ValueError("codes must all be unique")
+        raise ValueError("codes must all be unique.")
 
     #Determine hydrologic region that contains this Regression Region
     hydrologicRegionName = None
@@ -17,7 +17,7 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
         if regressionRegionCode in regressionRegionCodes:
             hydrologicRegionName = hydrologicRegion
     if hydrologicRegionName == None:
-        raise ValueError("regressionRegionCode not valid")
+        raise ValueError("regressionRegionCode not valid.")
 
     #Determine method for each code: "BC" (basin characteristic), "AC" (active channel), "BW" (bankfull width), or "RS" (remote sensing)
     methodCode1 = code1[:2]
@@ -28,9 +28,9 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
         methodCode2 = "BC"
     validMethodCodes = ["BC", "AC", "BW", "RS"]
     if methodCode1 not in validMethodCodes or methodCode2 not in validMethodCodes:
-        raise ValueError("Method in code not valid")
+        raise ValueError("Method in code not valid.")
     if methodCode1 == methodCode2:
-        raise ValueError("Method in codes must all be unique")
+        raise ValueError("Method in codes must all be unique.")
 
     #Determine AEP: a string to describe the peak-flow discharge with annual exceedance probability, ex. "Q42.9"
     isDigitsCode1 = [x.isdigit() for x in code1]
@@ -44,7 +44,7 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
     if code1[firstDigitIndexCode1:lastDigitIndexCode1+1] == code2[firstDigitIndexCode2:lastDigitIndexCode2+1]:
         AEP = "Q" + code1[firstDigitIndexCode1:lastDigitIndexCode1+1].replace("_", ".") 
     else:
-        raise ValueError("AEP value must be the same for all flow statistics")
+        raise ValueError("AEP value must be the same for all flow statistics.")
 
     #Return the coefficient from the table
     try:
@@ -53,7 +53,7 @@ def getCrossCorrelationCoefficient(regressionRegionCode, code1, code2):
         try:
             coefficient = crossCorrelationCoefficientTable[hydrologicRegionName][methodCode2 + "," + methodCode1][AEP]
         except:
-            raise Exception("Coefficient could not be determined")
+            raise Exception("Coefficient could not be determined.")
     finally: 
         return coefficient
 
@@ -80,7 +80,7 @@ def weightEst2(x1, x2, SEP1, SEP2, regressionRegionCode, code1, code2):
     r12 = getCrossCorrelationCoefficient(regressionRegionCode, code1, code2)
 
     if((SEP1 <= 0) | (SEP2 <= 0)):
-        raise ValueError("All SEP values must be greater than zero")
+        raise ValueError("All SEP values must be greater than zero.")
 
     S12 = r12*(SEP1*SEP2) 
 
@@ -114,7 +114,7 @@ def weightEst3(x1, x2, x3, SEP1, SEP2, SEP3, regressionRegionCode, code1, code2,
     r23 = getCrossCorrelationCoefficient(regressionRegionCode, code2, code3)
 
     if((SEP1 <= 0) | (SEP2 <= 0) | (SEP3 <= 0)):
-        raise ValueError("All SEP values must be greater than zero")
+        raise ValueError("All SEP values must be greater than zero.")
 
     S12 = r12*(SEP1*SEP2) 
     S13 = r13*(SEP1*SEP3)
@@ -181,6 +181,10 @@ def weightEst(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code
     xValidValues = [i for (i, v) in zip(xValues, validValues) if v]
     SEPValidValues = [i for (i, v) in zip(SEPValues, validValues) if v]
     codeValidValues = [i for (i, v) in zip(codeValues, validValues) if v]
+
+    # Check that valid values are not all null
+    if not any(SEPValidValues):
+        raise ValueError("SEP values were unavailable for corresponding flow statistic values.")
 
     if (numberValidValues < 2):
         raise ValueError("At least two estimation method values must be provided.")
