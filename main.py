@@ -1,9 +1,12 @@
+from logging import warning
 from urllib import request
 from fastapi import FastAPI, HTTPException, Response
-from fastapi.responses import RedirectResponse
+from fastapi.responses import RedirectResponse, JSONResponse
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pydantic.schema import Optional
+from fastapi.encoders import jsonable_encoder
+import json
 
 from ChannelWidthWeighting import weightEst, weightEst2, weightEst3, weightEst4
 
@@ -190,7 +193,7 @@ def weightest(request_body: WeightEst, response: Response):
             request_body.code4,
         )
         if warningMessage is not None:
-            response.headers["X-USGSWIM-Messages"] = {"wim_msgs": warningMessage}
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -216,7 +219,7 @@ def weightest2(request_body: WeightEst2, response: Response):
             request_body.code2
         )
         if warningMessage is not None:
-            response.headers["X-USGSWIM-Messages"] = {"wim_msgs": warningMessage}
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -245,7 +248,7 @@ def weightest3(request_body: WeightEst3, response: Response):
             request_body.code3
         )
         if warningMessage is not None:
-            response.headers["X-USGSWIM-Messages"] = {"wim_msgs": warningMessage}
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -277,7 +280,8 @@ def weightest4(request_body: WeightEst4, response: Response):
             request_body.code3,
             request_body.code4,
         )
-        response.headers["X-USGSWIM-Messages"] = {"wim_msgs": warningMessage}
+        if warningMessage is not None:
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
         return {
             "Z": Z,
             "SEPZ": SEPZ,
