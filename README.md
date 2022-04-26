@@ -73,7 +73,7 @@ You can make an example `POST` call to http://127.0.0.1:8000/weightest4 with the
      - Click "Open" to connect
  3. Go to the app directory: `cd /var/www/SS-WeightingServices`
  4. Pull the latest code: `sudo git pull origin master`
- 5. Restart the daemon: `sudo systemctl restart channelwidthweighting`
+ 5. Restart the daemon: `sudo systemctl restart SS-WeightingServices`
  6. Check that the services were updated: https://ss-weightingservices.streamstats.usgs.gov/docs
  7. Exit when finished: `exit`
 
