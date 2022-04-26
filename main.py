@@ -191,6 +191,7 @@ def weightest(request_body: WeightEst, response: Response):
         )
         if warningMessage is not None:
             response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
