@@ -218,6 +218,7 @@ def weightest2(request_body: WeightEst2, response: Response):
         )
         if warningMessage is not None:
             response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -247,6 +248,7 @@ def weightest3(request_body: WeightEst3, response: Response):
         )
         if warningMessage is not None:
             response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -280,6 +282,7 @@ def weightest4(request_body: WeightEst4, response: Response):
         )
         if warningMessage is not None:
             response.headers["X-USGSWIM-Messages"] = json.dumps({'wim_msgs': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
