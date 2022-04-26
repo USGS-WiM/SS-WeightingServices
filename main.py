@@ -1,9 +1,9 @@
-from urllib import request
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pydantic.schema import Optional
+import json
 
 from ChannelWidthWeighting import weightEst, weightEst2, weightEst3, weightEst4
 
@@ -190,7 +190,8 @@ def weightest(request_body: WeightEst, response: Response):
             request_body.code4,
         )
         if warningMessage is not None:
-            response.headers["warning"] = warningMessage
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'warning': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -216,7 +217,8 @@ def weightest2(request_body: WeightEst2, response: Response):
             request_body.code2
         )
         if warningMessage is not None:
-            response.headers["warning"] = warningMessage
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'warning': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -245,7 +247,8 @@ def weightest3(request_body: WeightEst3, response: Response):
             request_body.code3
         )
         if warningMessage is not None:
-            response.headers["warning"] = warningMessage
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'warning': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -277,7 +280,9 @@ def weightest4(request_body: WeightEst4, response: Response):
             request_body.code3,
             request_body.code4,
         )
-        response.headers["warning"] = warningMessage
+        if warningMessage is not None:
+            response.headers["X-USGSWIM-Messages"] = json.dumps({'warning': warningMessage})
+        response.headers["Access-Control-Expose-Headers"] = "X-USGSWIM-Messages"
         return {
             "Z": Z,
             "SEPZ": SEPZ,
