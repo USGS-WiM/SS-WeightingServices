@@ -1,11 +1,8 @@
-from logging import warning
-from urllib import request
 from fastapi import FastAPI, HTTPException, Response
-from fastapi.responses import RedirectResponse, JSONResponse
+from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from pydantic.schema import Optional
-from fastapi.encoders import jsonable_encoder
 import json
 
 from ChannelWidthWeighting import weightEst, weightEst2, weightEst3, weightEst4
