@@ -27,9 +27,9 @@ Alternate instructions for the Windows Anaconda3 prompt:
 
 ```bash
 # create a new Conda environment
-conda create --name sc-runoffmodelingservices
+conda create --name ss-weightingservices
 # active the Conda environment
-conda activate sc-runoffmodelingservices
+conda activate ss-weightingservices
 # install the project's dependencies
 conda install pip
 pip install -r requirements.txt
