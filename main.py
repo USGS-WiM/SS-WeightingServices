@@ -190,7 +190,7 @@ def weightest(request_body: WeightEst, response: Response):
             request_body.code4,
         )
         if warningMessage is not None:
-            response.headers["warning"] = warningMessage
+            response.headers["X-USGSWIM-Messages"] = warningMessage
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -216,7 +216,7 @@ def weightest2(request_body: WeightEst2, response: Response):
             request_body.code2
         )
         if warningMessage is not None:
-            response.headers["warning"] = warningMessage
+            response.headers["X-USGSWIM-Messages"] = warningMessage
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -245,7 +245,7 @@ def weightest3(request_body: WeightEst3, response: Response):
             request_body.code3
         )
         if warningMessage is not None:
-            response.headers["warning"] = warningMessage
+            response.headers["X-USGSWIM-Messages"] = warningMessage
         return {
             "Z": Z,
             "SEPZ": SEPZ,
@@ -277,7 +277,7 @@ def weightest4(request_body: WeightEst4, response: Response):
             request_body.code3,
             request_body.code4,
         )
-        response.headers["warning"] = warningMessage
+        response.headers["X-USGSWIM-Messages"] = warningMessage
         return {
             "Z": Z,
             "SEPZ": SEPZ,
