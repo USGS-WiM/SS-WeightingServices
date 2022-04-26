@@ -277,7 +277,7 @@ def weightest4(request_body: WeightEst4, response: Response):
             request_body.code3,
             request_body.code4,
         )
-        response.headers["X-USGSWIM-Messages"] = warningMessage
+        response.headers["X-USGSWIM-Messages"] = {"wim_msgs": warningMessage}
         return {
             "Z": Z,
             "SEPZ": SEPZ,
