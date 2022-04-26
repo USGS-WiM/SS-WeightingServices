@@ -183,7 +183,7 @@ def weightEst(x1, x2, x3, x4, SEP1, SEP2, SEP3, SEP4, regressionRegionCode, code
     codeValidValues = [i for (i, v) in zip(codeValues, validValues) if v]
 
     # Check that valid values are not all null
-    if not any(SEPValidValues):
+    if None in SEPValidValues:
         raise ValueError("SEP values were unavailable for corresponding flow statistic values.")
 
     if (numberValidValues < 2):
