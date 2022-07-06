@@ -30,7 +30,7 @@ app.add_middleware(
 # These schemas provide format and data type validation
 #  of request body inputs, and automated API documentation
 
-class WeightEst(BaseModel): # NOT WORKING
+class WeightEst(BaseModel):
 
     x1: float = Field(default=None, title="Statstic Value 1", description="Value of first statistic (float)", example="122")
     x2: float = Field(default=None, title="Statstic Value 2", description="Value of second statistic (float)", example="null")
