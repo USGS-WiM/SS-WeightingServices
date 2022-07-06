@@ -1,10 +1,10 @@
 [
   {
-    "name": "wimpo",
+    "name": "SS-WeightingServices",
     "organization": "U.S. Geological Survey",
-    "description": "Documents best practices for software development within WIM",
-    "version": "v0.0.0",
-    "status": ["Ideation", "Development", "Alpha", "Beta", "Release Candidate", "Production", "Archival"],
+    "description": "StreamStats Channel Width Weighting Services",
+    "version": "v1.0.0",
+    "status": ["Production"],
 
     "permissions": {
       "usageType": "openSource",
@@ -16,40 +16,30 @@
       ]
     },
 
-    "homepageURL": "https://wim.usgs.gov",
-    "downloadURL": "https://github.com/USGS-WiM/wimpo/archive/master.zip",
-    "disclaimerURL": "https://github.com/USGS-WiM/wimpo/blob/master/DISCLAIMER.md",
-    "repositoryUrl": "https://github.com/USGS-WiM/wimpo",
+    "homepageURL": "https://ss-weightingservices.streamstats.usgs.gov/docs",
+    "downloadURL": "https://github.com/USGS-WiM/SS-WeightingServices/archive/master.zip",
+    "disclaimerURL": "https://github.com/USGS-WiM/SS-WeightingServices/master/DISCLAIMER.md",
+    "repositoryUrl": "https://github.com/USGS-WiM/SS-WeightingServices",
     "vcs": "git",
 
     "laborHours": null,
 
     "tags": [
-      "client",
       "service",
-      "script",
-      "guidance",
-      "template",
-      "interactive map",
-      "api",
-      "webapp"
+      "api"
     ],
 
     "languages": [
-      "markdown",
-      "jquery",
-      "python",
-      "leaflet",
-      "etc"
+      "python"
     ],
 
     "contact": {
-      "name": "jessie doe",
-      "email": "jdoe@usgs.gov"
+      "name": "Andrea S. Medenblik",
+      "email": "amedenblik@usgs.gov"
     },
 
     "date": {
-      "metadataLastUpdated": "2017-10-25"
+      "metadataLastUpdated": "2022-07-06"
     }
   }
 ]
