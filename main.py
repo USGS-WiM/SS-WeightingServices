@@ -1,8 +1,7 @@
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.responses import RedirectResponse
 from starlette.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from pydantic.schema import Optional
+from pydantic import BaseModel, Field
 import json
 
 from ChannelWidthWeighting import weightEst, weightEst2, weightEst3, weightEst4
@@ -31,63 +30,63 @@ app.add_middleware(
 # These schemas provide format and data type validation
 #  of request body inputs, and automated API documentation
 
-class WeightEst(BaseModel):
+class WeightEst(BaseModel): # NOT WORKING
 
-    x1: Optional[float]
-    x2: Optional[float]
-    x3: Optional[float]
-    x4: Optional[float]
-    sep1: Optional[float]
-    sep2: Optional[float]
-    sep3: Optional[float]
-    sep4: Optional[float]
-    regressionRegionCode: str
-    code1: Optional[str]
-    code2: Optional[str]
-    code3: Optional[str]
-    code4: Optional[str]
+    x1: float = Field(default=None, title="Statstic Value 1", description="Value of first statistic (float)", example="122")
+    x2: float = Field(default=None, title="Statstic Value 2", description="Value of second statistic (float)", example="null")
+    x3: float = Field(default=None, itle="Statstic Value 3", description="Value of third statistic (float)", example="null")
+    x4: float = Field(default=None, title="Statstic Value 4", description="Value of fourth statistic (float)", example="26.6")
+    sep1: float = Field(default=None, title="SEP Value 1", description="Mean standard error of prediction value of first statistic (float)", example="0.483")
+    sep2: float = Field(default=None, title="SEP Value 2", description="Mean standard error of prediction value of second statistic (float)", example="null")
+    sep3: float = Field(default=None, title="SEP Value 3", description="Mean standard error of prediction value of third statistic (float)", example="null")
+    sep4: float = Field(default=None, title="SEP Value 4", description="Mean standard error of prediction value of fourth statistic (float)", example="0.538")
+    regressionRegionCode: str = Field(..., title="Regression Region Code", description="Code for regression region", example="GC1834")
+    code1: str = Field(default=None, title="Statistic Code 1", description="Code for first statistic", example="ACPK66_7AE")
+    code2: str = Field(default=None, title="Statistic Code 2", description="Code for second statistic", example="null")
+    code3: str = Field(default=None, title="Statistic Code 3", description="Code for third statistic", example="null")
+    code4: str = Field(default=None, title="Statistic Code 4", description="Code for fourth statistic", example="RSPK66_7AE")
 
     class Config:
         null = None
         schema_extra = {
             "example": {
-                "x1": 549.54,
+                "x1": 122,
                 "x2": null,
                 "x3": null,
-                "x4": 398.11,
-                "sep1": 0.234,
+                "x4": 26.6,
+                "sep1": 0.483,
                 "sep2": null,
                 "sep3": null,
-                "sep4": 0.299,
-                "regressionRegionCode": "GC1851",
-                "code1": "PK1AEP",
+                "sep4": 0.538,
+                "regressionRegionCode": "GC1834",
+                "code1": "ACPK66_7AE",
                 "code2": null,
                 "code3": null,
-                "code4": "RSPK1AEP"
+                "code4": "RSPK66_7AE"
             }
         }
 
 class WeightEst2(BaseModel):
 
     # all fields are required
-    x1: float
-    x2: float
-    sep1: float
-    sep2: float
-    regressionRegionCode: str
-    code1: str
-    code2: str
+    x1: float = Field(..., title="Statstic Value 1", description="Value of first statistic (float)", example="122")
+    x2: float = Field(..., title="Statstic Value 2", description="Value of second statistic (float)", example="8.24")
+    sep1: float = Field(..., title="SEP Value 1", description="Mean standard error of prediction value of first statistic (float)", example="0.483")
+    sep2: float = Field(..., title="SEP Value 2", description="Mean standard error of prediction value of second statistic (float)", example="0.376")
+    regressionRegionCode: str = Field(..., title="Regression Region Code", description="Code for regression region", example="GC1832")
+    code1: str = Field(..., title="Statistic Code 1", description="Code for first statistic", example="ACPK66_7AE")
+    code2: str = Field(..., title="Statistic Code 2", description="Code for second statistic", example="PK66_7AEP")
 
     class Config:
         schema_extra = {
             "example": {
-                "x1": 40.46,
-                "x2": 63.39,
-                "sep1": 0.554,
-                "sep2": 0.677,
-                "regressionRegionCode": "GC1847",
-                "code1": "PK1AEP",
-                "code2": "BWPK1AEP"
+                "x1": 122,
+                "x2": 8.24,
+                "sep1": 0.483,
+                "sep2": 0.376,
+                "regressionRegionCode": "GC1832",
+                "code1": "ACPK66_7AE",
+                "code2": "PK66_7AEP"
             }
         }
 
@@ -95,66 +94,66 @@ class WeightEst2(BaseModel):
 class WeightEst3(BaseModel):
 
     # all fields are required
-    x1: float
-    x2: float
-    x3: float
-    sep1: float
-    sep2: float
-    sep3: float
-    regressionRegionCode: str
-    code1: str
-    code2: str
-    code3: str
+    x1: float = Field(..., title="Statstic Value 1", description="Value of first statistic (float)", example="122")
+    x2: float = Field(..., title="Statstic Value 2", description="Value of second statistic (float)", example="8.24")
+    x3: float = Field(..., title="Statstic Value 3", description="Value of third statistic (float)", example="45.9")
+    sep1: float = Field(..., title="SEP Value 1", description="Mean standard error of prediction value of first statistic (float)", example="0.483")
+    sep2: float = Field(..., title="SEP Value 2", description="Mean standard error of prediction value of second statistic (float)", example="0.376")
+    sep3: float = Field(..., title="SEP Value 3", description="Mean standard error of prediction value of third statistic (float)", example="0.467")
+    regressionRegionCode: str = Field(..., title="Regression Region Code", description="Code for regression region", example="GC1833")
+    code1: str = Field(..., title="Statistic Code 1", description="Code for first statistic", example="ACPK66_7AE")
+    code2: str = Field(..., title="Statistic Code 2", description="Code for second statistic", example="PK66_7AEP")
+    code3: str = Field(..., title="Statistic Code 3", description="Code for third statistic", example="BWPK66_7AE")
 
     class Config:
         schema_extra = {
             "example": {
-                "x1": 549.54,
-                "x2": 281.84,
-                "x3": 316.23,
-                "sep1": 0.234,
-                "sep2": 0.262,
-                "sep3": 0.283,
-                "regressionRegionCode": "GC1851",
-                "code1": "PK1AEP",
-                "code2": "ACPK1AEP",
-                "code3": "BWPK1AEP"
+                "x1": 122,
+                "x2": 8.24,
+                "x3": 45.9,
+                "sep1": 0.483,
+                "sep2": 0.376,
+                "sep3": 0.467,
+                "regressionRegionCode": "GC1833",
+                "code1": "ACPK66_7AE",
+                "code2": "PK66_7AEP",
+                "code3": "BWPK66_7AE"
             }
         }
 
 class WeightEst4(BaseModel):
 
     # all fields are required
-    x1: float
-    x2: float
-    x3: float
-    x4: float
-    sep1: float
-    sep2: float
-    sep3: float
-    sep4: float
-    regressionRegionCode: str
-    code1: str
-    code2: str
-    code3: str
-    code4: str
+    x1: float = Field(..., title="Statstic Value 1", description="Value of first statistic (float)", example="122")
+    x2: float = Field(..., title="Statstic Value 2", description="Value of second statistic (float)", example="8.24")
+    x3: float = Field(..., title="Statstic Value 3", description="Value of third statistic (float)", example="45.9")
+    x4: float = Field(..., title="Statstic Value 4", description="Value of fourth statistic (float)", example="26.6")
+    sep1: float = Field(..., title="SEP Value 1", description="Mean standard error of prediction value of first statistic (float)", example="0.483")
+    sep2: float = Field(..., title="SEP Value 2", description="Mean standard error of prediction value of second statistic (float)", example="0.376")
+    sep3: float = Field(..., title="SEP Value 3", description="Mean standard error of prediction value of third statistic (float)", example="0.467")
+    sep4: float = Field(..., title="SEP Value 4", description="Mean standard error of prediction value of fourth statistic (float)", example="0.538")
+    regressionRegionCode: str = Field(..., title="Regression Region Code", description="Code for regression region", example="GC1834")
+    code1: str = Field(..., title="Statistic Code 1", description="Code for first statistic", example="ACPK66_7AE")
+    code2: str = Field(..., title="Statistic Code 2", description="Code for second statistic", example="PK66_7AEP")
+    code3: str = Field(..., title="Statistic Code 3", description="Code for third statistic", example="BWPK66_7AE")
+    code4: str = Field(..., title="Statistic Code 4", description="Code for fourth statistic", example="RSPK66_7AE")
 
     class Config:
         schema_extra = {
             "example": {
-                "x1": 549.54,
-                "x2": 281.84,
-                "x3": 316.23,
-                "x4": 398.11,
-                "sep1": 0.234,
-                "sep2": 0.262,
-                "sep3": 0.283,
-                "sep4": 0.299,
-                "regressionRegionCode": "GC1851",
-                "code1": "PK1AEP",
-                "code2": "ACPK1AEP",
-                "code3": "BWPK1AEP",
-                "code4": "RSPK1AEP"
+                "x1": 122,
+                "x2": 8.24,
+                "x3": 45.9,
+                "x4": 26.6,
+                "sep1": 0.483,
+                "sep2": 0.376,
+                "sep3": 0.467,
+                "sep4": 0.538,
+                "regressionRegionCode": "GC1834",
+                "code1": "ACPK66_7AE",
+                "code2": "PK66_7AEP",
+                "code3": "BWPK66_7AE",
+                "code4": "RSPK66_7AE"
             }
         }
 
