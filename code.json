@@ -4,7 +4,7 @@
     "organization": "U.S. Geological Survey",
     "description": "StreamStats Channel Width Weighting Services",
     "version": "v1.0.0",
-    "status": ["Production"],
+    "status": ["Archival"],
 
     "permissions": {
       "usageType": "openSource",
